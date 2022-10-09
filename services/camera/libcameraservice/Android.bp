@@ -126,7 +126,6 @@ cc_library {
     defaults: [
         "libcameraservice_deps",
         "uses_oplus_camera_defaults",
-        "uses_nothing_camera_defaults",
     ],
     // Camera service source
 
