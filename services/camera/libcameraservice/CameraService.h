@@ -337,8 +337,6 @@ public:
     // Shared utilities
     static binder::Status filterGetInfoErrorCode(status_t err);
 
-    static std::string getCurrPackageName();
-
     /**
      * Returns true if the device is an automotive device and cameraId is system
      * only camera which has characteristic AUTOMOTIVE_LOCATION value as either
@@ -346,6 +344,8 @@ public:
      * AUTOMOTIVE_LOCATION_EXTERIOR_FRONT or AUTOMOTIVE_LOCATION_EXTERIOR_REAR.
      */
     bool isAutomotiveExteriorSystemCamera(const std::string& cameraId) const;
+
+    static std::string getCurrPackageName();
 
     /////////////////////////////////////////////////////////////////////
     // CameraClient functionality

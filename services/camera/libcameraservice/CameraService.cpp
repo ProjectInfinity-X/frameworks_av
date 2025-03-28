@@ -1492,7 +1492,7 @@ Status CameraService::filterGetInfoErrorCode(status_t err) {
 }
 
 std::string CameraService::getCurrPackageName() {
-    return sCurrPackageName;
+     return sCurrPackageName;
 }
 
 Status CameraService::makeClient(
@@ -2489,8 +2489,6 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const std::str
                                     /*out*/ sp<CLIENT>& device) {
     binder::Status ret = binder::Status::ok();
 
-    sCurrPackageName = clientPackageName;
-   
     nsecs_t openTimeNs = systemTime();
 
     sp<CLIENT> client = nullptr;
@@ -2504,6 +2502,8 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const std::str
         // Acquire mServiceLock and prevent other clients from connecting
         std::unique_ptr<AutoConditionLock> lock =
                 AutoConditionLock::waitAndAcquire(mServiceLockWrapper, DEFAULT_CONNECT_TIMEOUT_NS);
+                
+        sCurrPackageName = clientPackageName;
 
         if (lock == nullptr) {
             ALOGE("CameraService::connect (PID %d) rejected (too many other clients connecting).",
@@ -4440,7 +4440,7 @@ status_t CameraService::BasicClient::notifyCameraOpening() {
 
 #ifdef USES_MIUI_CAMERA
     // Configure miui camera mode
-    if (String8(mClientPackageName.c_str()) == "com.android.camera") {
+    if (String8(sCurrPackageName.c_str()) == "com.android.camera") {
         SetProperty("sys.camera.miui.apk", "1");
         ALOGI("Enabling miui camera mode");
     } else {
