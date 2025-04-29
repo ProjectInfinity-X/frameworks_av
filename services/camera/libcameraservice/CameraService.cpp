@@ -2533,12 +2533,11 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const std::str
     const std::string clientPackageName =
             clientAttribution.packageName.value_or(kUnknownPackageName);
 
+    sCurrPackageName = clientPackageName;
     {
         // Acquire mServiceLock and prevent other clients from connecting
         std::unique_ptr<AutoConditionLock> lock =
                 AutoConditionLock::waitAndAcquire(mServiceLockWrapper, DEFAULT_CONNECT_TIMEOUT_NS);
-                
-        sCurrPackageName = clientPackageName;
 
         if (lock == nullptr) {
             ALOGE("CameraService::connect (PID %d) rejected (too many other clients connecting).",
