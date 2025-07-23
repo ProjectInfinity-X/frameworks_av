@@ -6,7 +6,7 @@ service media.tuner /system/bin/mediatuner
     group media
     user root
     ioprio rt 4
-    task_profiles AudioAppCapacity AudioAppPerformance
+    task_profiles ProcessCapacityHigh HighPerformance
     interface aidl media.tuner
     oneshot
     disabled
