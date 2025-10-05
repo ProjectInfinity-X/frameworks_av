@@ -260,6 +260,9 @@ cc_library {
     }) + select(soong_config_variable("camera", "disable_torch_control"), {
         "true": ["-DDISABLE_TORCH_CONTROL"],
         default: [],
+    }) + select(soong_config_variable("camera", "uses_miui_camera"), {
+        any @ flag_val: ["-DUSES_MIUI_CAMERA=\"" + flag_val + "\""],
+        default: [],
     }) + select(soong_config_variable("camera", "ext_lib"), {
         any @ flag_val: ["-DTARGET_PROVIDES_CAMERA_PROVIDER_EXT_LIB"],
         default: [],
